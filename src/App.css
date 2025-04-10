@@ -1,0 +1,38 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 9em;
+  padding: 2em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.planet0-class:hover {
+  filter: drop-shadow(0 0 2em #fb6161aa);
+}
+
+.planet1-class:hover {
+  filter: drop-shadow(0 0 2em #aa3636aa);
+}
+
+.planet2-class:hover {
+  filter: drop-shadow(0 0 2em #a3b3fdaa);
+}
+
+.planet3-class:hover {
+  filter: drop-shadow(0 0 2em #2dbcffaa);
+}
+
+.planet4-class:hover {
+  filter: drop-shadow(0 0 2em #79ffd7aa);
+}
+
+.logo.react {
+  border-radius: 50%;
+  overflow: hidden;
+}
