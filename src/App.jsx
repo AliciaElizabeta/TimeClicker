@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import UpgradeList from './UpgradeList.jsx'
 import planet0 from './assets/planet0.gif'
 import planet1 from './assets/planet1.gif'
 import planet2 from './assets/planet2.gif'
@@ -57,6 +58,8 @@ function App() {
 
   return (
     <>
+    <UpgradeList/>
+    <div>
       <h1>Time clicker</h1>
       <div className="card">
         <p>{count} seconds</p>
@@ -70,6 +73,8 @@ function App() {
           onClick={handleClick}
         />
       </div>
+
+    </div>
     </>
   )
 }
