@@ -4,3 +4,11 @@
     align-items: flex-start;
     width: 10rem;
 }
+
+.unabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(80%);
+  }
+  

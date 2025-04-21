@@ -1,21 +1,45 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './UpgradeComp.css'
 
-function UpgradeComp({name}){
-    const[lv, setLV] = useState(0)
-    const[cost, setCost] = useState(100)
+function UpgradeComp({ name, UpgCost = 100, cps = 1, multiplier = 1.15, count, setCount, clickVal, setClickVal }) {
+    const [level, setLevel] = useState(0)
+    const [cost, setCost] = useState(UpgCost)
+    const buttonRef = useRef(null)
+
+
+    const handleUpgrade = () => {
+        if (count < cost) return  // ❌ No tienes suficiente
+        setLevel(prev => prev + 1)
+        
+        setCount(prev => Number((prev - cost).toFixed(2)))  // 💸 Pagar la mejora
+        const newClickVal = clickVal + cps
+        setClickVal(newClickVal)
+        const newCost = Math.floor(UpgCost * Math.pow(multiplier, level + 1))
+        setCost(newCost)
+    }
+
+    useEffect(() => {
+        console.log("G")
+        if (!buttonRef.current) return
+        if (count < cost) {
+            buttonRef.current.classList.add('unabled')
+        } else {
+            buttonRef.current.classList.remove('unabled')
+        }
+    }, [count, cost])
     
-    return(
-        <div>
-            <button>
+
+    return (
+        <div className="UpgradeComp-container">
+            <button ref={buttonRef} className="UpgradeComp-button" onClick={handleUpgrade}>
                 <div className="UpgradeComp">
-                    {name}
-                    <span>{cost} sec.</span>
-                    <span style={{position:"relative", left:"75%"}}>{lv}</span>
+                    <span className="upgrade-name">{name}</span>
+                    <span className="upgrade-cost">{cost} sec.</span>
+                    <span className="upgrade-lv">Lv {level}</span>
                 </div>
             </button>
         </div>
     )
 }
 
-export default UpgradeComp;
+export default UpgradeComp

@@ -13,29 +13,59 @@
   padding: 2em;
   will-change: filter;
   transition: filter 300ms;
+  user-select: none;       /* Evita que se pueda seleccionar */
+  -webkit-user-drag: none; /* Evita que se arrastre en Safari */
+
 }
 
 .planet0-class:hover {
   filter: drop-shadow(0 0 2em #fb6161aa);
+  cursor: pointer;
 }
 
 .planet1-class:hover {
   filter: drop-shadow(0 0 2em #aa3636aa);
+  cursor: pointer;
 }
 
 .planet2-class:hover {
   filter: drop-shadow(0 0 2em #a3b3fdaa);
+  cursor: pointer;
 }
 
 .planet3-class:hover {
   filter: drop-shadow(0 0 2em #2dbcffaa);
+  cursor: pointer;
 }
 
 .planet4-class:hover {
   filter: drop-shadow(0 0 2em #79ffd7aa);
+  cursor: pointer;
 }
 
 .logo.react {
   border-radius: 50%;
   overflow: hidden;
+}
+
+.floating-text {
+  font-size: 1.5rem;
+  color: #ffffff;
+  pointer-events: none;
+  animation: floatUp 0.8s ease-out forwards;
+  font-weight: bold;
+  text-shadow: 0 0 6px #fff;
+  transform: translate(-50%, -50%); /* Centrar */
+  z-index: 999;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100px);
+  }
 }

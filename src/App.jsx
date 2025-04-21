@@ -18,10 +18,10 @@ const planetList = {
 
 const nextPlanetClicks = {
   0 : 0,
-  5 : 1,
-  10 : 2,
-  20 : 3,
-  30 : 4
+  1000 : 1,
+  5000 : 2,
+  20000 : 3,
+  100000 : 4
 }
 
 const planetClasses = {
@@ -33,11 +33,15 @@ const planetClasses = {
 }
 
 function App() {
+  const [clickVal, setClickVal] = useState(1)
   const [count, setCount] = useState(0)
   const [animate, setAnimate] = useState(false)
   const [rotation, setRotation] = useState(0)
   const [planet, setPlanet] = useState(planetList[0])
   const [planetClass, setPlanetClass] = useState(planetClasses[0])
+  const [floatingText, setFloatingText] = useState(null)
+  const [floatingTexts, setFloatingTexts] = useState([])
+  const [floatingPosition, setFloatingPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     if (count === 0) return // para evitar que se dispare al principio
@@ -50,17 +54,47 @@ function App() {
     return () => clearTimeout(timeout)
   }, [count])
 
-  function handleClick(){
-    setCount((c) => c + 1)
+  function handleClick(e){
+    setCount((c) => Number((c + clickVal).toFixed(2)))
     setRotation((r) => r + 20)
 
+    const id = crypto.randomUUID() // o Date.now() como fallback
+    const x = e.clientX
+    const y = e.clientY
+    const newText = {
+      id,
+      value: `+${clickVal.toFixed(2)}`,
+      x,
+      y
+    }
+  
+    // Añadir el nuevo texto al array
+    setFloatingTexts(prev => [...prev, newText])
+  
+    // Quitarlo tras un tiempo
+    setTimeout(() => {
+      setFloatingTexts(prev => prev.filter(text => text.id !== id))
+    }, 400)
   }
 
   return (
     <>
-    <UpgradeList/>
+    <UpgradeList count={count} setCount={setCount} clickVal={clickVal} setClickVal={setClickVal}/>
     <div>
-      <h1>Time clicker</h1>
+    {floatingTexts.map((text) => (
+  <span
+    key={text.id}
+    className="floating-text"
+    style={{
+      position: 'fixed',
+      left: text.x,
+      top: text.y,
+    }}
+  >
+    {text.value}
+  </span>
+))}
+
       <div className="card">
         <p>{count} seconds</p>
       </div>
