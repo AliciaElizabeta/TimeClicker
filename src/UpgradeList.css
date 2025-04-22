@@ -1,4 +1,7 @@
 .UpgradeList-container{
+    position: absolute;
+    left: 20px;
+    top: 20px;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;

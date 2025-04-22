@@ -9,13 +9,16 @@
 }
 
 .logo {
-  height: 9em;
+  height: 13em;
   padding: 2em;
   will-change: filter;
   transition: filter 300ms;
   user-select: none;       /* Evita que se pueda seleccionar */
   -webkit-user-drag: none; /* Evita que se arrastre en Safari */
+}
 
+.central-zone{
+  margin-left: 25%;
 }
 
 .planet0-class:hover {
@@ -52,6 +55,8 @@
   font-size: 1.5rem;
   color: #ffffff;
   pointer-events: none;
+  user-select: none;       /* Evita que se pueda seleccionar */
+  -webkit-user-drag: none; /* Evita que se arrastre en Safari */
   animation: floatUp 0.8s ease-out forwards;
   font-weight: bold;
   text-shadow: 0 0 6px #fff;

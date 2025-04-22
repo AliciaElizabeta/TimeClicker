@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import UpgradeList from './UpgradeList.jsx'
+import ActiveBonus from './ActiveBonus.jsx'
 import planet0 from './assets/planet0.gif'
 import planet1 from './assets/planet1.gif'
 import planet2 from './assets/planet2.gif'
@@ -80,20 +81,20 @@ function App() {
   return (
     <>
     <UpgradeList count={count} setCount={setCount} clickVal={clickVal} setClickVal={setClickVal}/>
-    <div>
-    {floatingTexts.map((text) => (
-  <span
-    key={text.id}
-    className="floating-text"
-    style={{
-      position: 'fixed',
-      left: text.x,
-      top: text.y,
-    }}
-  >
-    {text.value}
-  </span>
-))}
+    <div className="central-zone">
+        {floatingTexts.map((text) => (
+        <span
+          key={text.id}
+          className="floating-text"
+          style={{
+            position: 'fixed',
+            left: text.x,
+            top: text.y,
+          }}
+        >
+          {text.value}
+        </span>
+      ))}
 
       <div className="card">
         <p>{count} seconds</p>
@@ -107,8 +108,9 @@ function App() {
           onClick={handleClick}
         />
       </div>
-
+      <ActiveBonus></ActiveBonus>
     </div>
+    
     </>
   )
 }
