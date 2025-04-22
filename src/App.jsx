@@ -48,12 +48,33 @@ function App() {
     if (count === 0) return // para evitar que se dispare al principio
     setAnimate(true)
     const timeout = setTimeout(() => setAnimate(false), 300) // duración de la animación
-    if(count in nextPlanetClicks){
-      setPlanet(planetList[nextPlanetClicks[count]])
-      setPlanetClass(planetClasses[nextPlanetClicks[count]])
+    
+    const thresholds = Object.keys(nextPlanetClicks)
+    .map(Number)
+    .sort((a, b) => b - a) // de mayor a menor
+  
+    for (let threshold of thresholds) {
+      if (count >= threshold) {
+        const planetIndex = nextPlanetClicks[threshold]
+        setPlanet(planetList[planetIndex])
+        setPlanetClass(planetClasses[planetIndex])
+        break
+      }
     }
     return () => clearTimeout(timeout)
   }, [count])
+
+  useEffect(() => {
+    if (clickVal <= 5) return;
+
+    const speed = clickVal > 10 ? 100 : 500
+  
+    const interval = setInterval(() => {
+      handleClick({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 })
+    }, speed)
+  
+    return () => clearInterval(interval)
+  }, [clickVal])
 
   function handleClick(e){
     setCount((c) => Number((c + clickVal).toFixed(2)))
@@ -80,7 +101,7 @@ function App() {
 
   return (
     <>
-    <UpgradeList count={count} setCount={setCount} clickVal={clickVal} setClickVal={setClickVal}/>
+    <UpgradeList count={count} setCount={setCount} clickVal={clickVal} setClickVal={setClickVal} setRotation={setRotation}/>
     <div className="central-zone">
         {floatingTexts.map((text) => (
         <span

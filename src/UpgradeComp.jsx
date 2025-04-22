@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './UpgradeComp.css'
 
-function UpgradeComp({ name, UpgCost = 100, cps = 1, multiplier = 1.15, count, setCount, clickVal, setClickVal }) {
+function UpgradeComp({ name, UpgCost = 100, cps = 1, multiplier = 1.15, count, setCount, clickVal, setClickVal, setRotation }) {
     const [level, setLevel] = useState(0)
     const [cost, setCost] = useState(UpgCost)
     const buttonRef = useRef(null)
@@ -9,11 +9,16 @@ function UpgradeComp({ name, UpgCost = 100, cps = 1, multiplier = 1.15, count, s
 
     const handleUpgrade = () => {
         if (count < cost) return  // ❌ No tienes suficiente
+    
         setLevel(prev => prev + 1)
-        
         setCount(prev => Number((prev - cost).toFixed(2)))  // 💸 Pagar la mejora
         const newClickVal = clickVal + cps
         setClickVal(newClickVal)
+    
+        if (setRotation) {
+            setRotation(prev => prev - 20) // ⬅️ Rotar en sentido contrario
+        }
+    
         const newCost = Math.floor(UpgCost * Math.pow(multiplier, level + 1))
         setCost(newCost)
     }

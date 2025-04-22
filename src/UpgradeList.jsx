@@ -9,7 +9,7 @@ const Upgrades = [
     // { name: 'QuantumProcessor', cost: 10000, cps: 150 }
 ];
 
-function UpgradeList({count, setCount, clickVal, setClickVal}) {
+function UpgradeList({count, setCount, clickVal, setClickVal, setRotation}) {
     return (
         <div className='UpgradeList-container'>
             {Upgrades.map(upg => (
@@ -22,6 +22,7 @@ function UpgradeList({count, setCount, clickVal, setClickVal}) {
                     setCount={setCount}
                     clickVal={clickVal}
                     setClickVal={setClickVal}
+                    setRotation={setRotation}
                 />
             ))}
         </div>
